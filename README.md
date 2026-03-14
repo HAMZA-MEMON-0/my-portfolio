@@ -6,7 +6,7 @@ This is my personal portfolio website built using **HTML**, **CSS**, and **JavaS
 
 ## 🌐 Live Demo
 
-🔗 [Visit My Portfolio](https://dev-ali-raza.github.io/my-portfolio/)
+🔗 [Visit My Portfolio](https://HAMZA-MEMON-0.github.io/my-portfolio/)
 
 ---
 
