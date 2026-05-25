@@ -1,365 +1,736 @@
-AOS.init({
-  duration: 1000,
-  easing: 'ease-in-out',
-  once: true
+/* =========================================================
+   Hamza Memon — Portfolio script
+   ========================================================= */
+
+document.addEventListener('DOMContentLoaded', () => {
+  AOS.init({ duration: 850, easing: 'ease-out-cubic', once: true, offset: 60 });
+
+  initNav();
+  initSpotlight();
+  initScrollProgress();
+  initYear();
+  initProjects();
+  initCounters();
+  initSkillBars();
+  initTilt();
+  initContactForm();
 });
 
+/* ---------- Contact form (Netlify Forms) ---------- */
+function initContactForm() {
+  const form = document.getElementById('contactForm');
+  const success = document.getElementById('formSuccess');
+  if (!form || !success) return;
 
-const tagColors = {
-  ".NET Core": "primary",
-  ".NET MVC": "primary",
-  "WinForms": "primary",
-  "Angular": "danger",
-  "SQL": "success",
-  "PrimeNG": "warning",
-  "Multi-Tenant": "info",
-  "HTML": "secondary",
-  "CSS": "primary",
-  "JavaScript": "warning",
-  "HyperPay": "dark",
-  "API": "info"
-};
+  // If redirected back from Netlify with ?submitted=true, skip straight to success
+  if (new URLSearchParams(location.search).get('submitted') === 'true') {
+    form.hidden = true;
+    success.hidden = false;
+    success.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }
 
-  const projectsData = [
-    {
-      key: "gohighlevel",
-      title: "GoHighLevel API Integration",
-      img: [
-        "images/Projects/gohighlevel-1.jpg",
-        "images/Projects/gohighlevel-2.gif",
-        "images/Projects/gohighlevel-3.png"
-      ],
-      desc: "Full integration of GoHighLevel APIs into a multi-tenant database using .NET Core and Angular.",
-      features: [
-        ".NET Core API for handling endpoints and auth",
-        "Angular frontend for data sync and management",
-        "Azure Blob Storage integration for file storage",
-        "Multi-tenant logic with SQL Server",
-        "Automated token refresh and caching"
-      ],
-      tags: [".NET Core", "Angular", "SQL"]
-    },
-    {
-      key: "garaj",
-      title: "Garaj by Jazz (Animations)",
-      img: [
-        "images/Projects/garaj-1.gif",
-        "images/Projects/garaj-2.gif",
-      ],
-      desc: "All frontend animations created using pure HTML, CSS, and JavaScript for a dynamic website experience.",
-      features: [
-        "CSS3 transitions & keyframe animations",
-        "Scroll-based parallax effects",
-        "Optimized animation performance",
-        "Interactive hover animations"
-      ],
-      tags: ["HTML", "CSS", "JavaScript"]
-    },
-    {
-      key: "hyperpay",
-      title: "HyperPay Integration (NopCommerce)",
-      img: [
-        "images/Projects/Hyperpay-1.png",
-        "images/Projects/Hyperpay-2.png",
-        "images/Projects/Hyperpay-3.png"
-      ],
-      desc: "Payment gateway integration in a .NET MVC eCommerce solution with live transaction logging.",
-      features: [
-        "Secure payment handling",
-        "Live payment status update",
-        "Integration with HyperPay SDK",
-        "SQL-backed transaction logs"
-      ],
-      tags: [".NET MVC", "SQL"]
-    },
-    {
-      key: "smsa",
-      title: "SMSA Shipping Integration",
-      img: [
-        "images/Projects/Smsa-1.png",
-        "images/Projects/Smsa-2.png",
-        "images/Projects/Smsa-3.png"
-      ],
-      desc: "Integrated SMSA API to manage shipping in a .NET MVC eCommerce platform.",
-      features: [
-        "API for label generation and tracking",
-        "Order linkage and shipment updates",
-        "Admin panel to manage shipments"
-      ],
-      tags: [".NET MVC", "API"]
-    },
-    {
-      key: "accountms",
-      title: "Account Management System",
-      img: [
-        "images/Projects/accountms-1.png",
-        "images/Projects/accountms-2.png",
-        "images/Projects/accountms-3.png"
-      ],
-      desc: "User account and billing system with multi-tenant logic, built using .NET Core and Angular.",
-      features: [
-        "User permission roles and auth",
-        "PrimeNG-powered UI",
-        "Tenant-based separation",
-        "Account summary reports"
-      ],
-      tags: [".NET Core", "Angular", "PrimeNG", "SQL"]
-    },
-    {
-      key: "distribution",
-      title: "Distribution System",
-      img: [
-        "images/Projects/distribution-1.png",
-        "images/Projects/distribution-2.png",
-        "images/Projects/distribution-3.png"
-      ],
-      desc: "Full product distribution software for vendors, warehouse managers and dispatchers.",
-      features: [
-        "Inventory movement tracking",
-        "Delivery scheduling",
-        "Angular dashboard with charts",
-        "Multi-tenant storage"
-      ],
-      tags: [".NET Core", "Angular", "SQL", "Multi-Tenant"]
-    },
-    {
-      key: "edocument",
-      title: "E-Document Service Portal",
-      img: [
-        "images/Projects/edocument-1.png",
-        "images/Projects/edocument-2.png",
-        "images/Projects/edocument-3.png"
-      ],
-      desc: "Multi-tenant document upload portal with OneLink and TCS API integrations.",
-      features: [
-        "Azure Blob Storage integration",
-        "API connection with OneLink & TCS",
-        "User authentication & tracking",
-        "Document metadata indexing"
-      ],
-      tags: [".NET Core", "Angular", "SQL", "Azure", "API"]
-    },
-    {
-      key: "restaurant",
-      title: "Restaurant Management System",
-      img: [
-        "images/Projects/restaurant-1.png",
-        "images/Projects/restaurant-2.png",
-        "images/Projects/restaurant-3.png"
-      ],
-      desc: "Windows Forms based restaurant billing and inventory software.",
-      features: [
-        "C# WinForms GUI",
-        "Table & order tracking",
-        "Billing reports",
-        "Inventory deduction"
-      ],
-      tags: ["C#", "WinForms", "SQL"]
-    },
-    {
-      key: "shop",
-      title: "Small Shop Management System",
-      img: [
-        "images/Projects/shop-1.png",
-        "images/Projects/shop-2.png",
-        "images/Projects/shop-3.png"
-      ],
-      desc: "Simple inventory and billing software for small retail shops.",
-      features: [
-        "Product entry & barcode",
-        "Customer billing & history",
-        "Low stock alerts",
-        "Sales reporting"
-      ],
-      tags: ["C#", "WinForms", "SQL"]
-    },
-    {
-      key: "inventory",
-      title: "Inventory Management System",
-      img: [
-        "images/Projects/inventory-1.png",
-        "images/Projects/inventory-2.png",
-        "images/Projects/inventory-3.png"
-      ],
-      desc: "Inventory tracking solution for stock in/out and alerts.",
-      features: [
-        "Stock movement logging",
-        "Monthly reporting",
-        "Windows Forms UI",
-        "User role support"
-      ],
-      tags: ["C#", "WinForms", "SQL"]
-    },
-    {
-      key: "townone",
-      title: "Town One Plot Booking System",
-      img: [
-        "images/Projects/townone-1.png",
-        "images/Projects/townone-2.png",
-        "images/Projects/townone-3.png"
-      ],
-      desc: "Housing society plot booking app built in Windows Forms.",
-      features: [
-        "Plot availability matrix",
-        "Booking confirmation & receipt",
-        "Installment plan tracking"
-      ],
-      tags: ["C#", "WinForms", "SQL"]
-    },
-    {
-      key: "iqbalarcade",
-      title: "Iqbal Arcade Shop/Apartment Booking",
-      img: [
-        "images/Projects/iqbalarcade-1.png",
-        "images/Projects/iqbalarcade-2.png",
-        "images/Projects/iqbalarcade-3.png"
-      ],
-      desc: "Booking system for shops and apartments in Iqbal Arcade.",
-      features: [
-        "Unit layout and status",
-        "Booking and payment records",
-        "Client profile management"
-      ],
-      tags: ["C#", "WinForms", "SQL"]
-    },
-    {
-      key: "gulsan",
-      title: "Gulsan-e-Azeem Plot Booking System",
-      img: [
-        "images/Projects/gulsan-1.png",
-        "images/Projects/gulsan-2.png",
-        "images/Projects/gulsan-3.png"
-      ],
-      desc: "Booking software for plots in Gulsan-e-Azeem housing project.",
-      features: [
-        "Dynamic plot assignment",
-        "Installment plans",
-        "Status reports and receipts"
-      ],
-      tags: ["C#", "WinForms", "SQL"]
-    },
-    {
-      key: "prizebond",
-      title: "Prize Bond Checker",
-      img: [
-        "images/Projects/prizebond-1.png",
-        "images/Projects/prizebond-2.png"
-      ],
-      desc: "Prize bond draw matching and result checker application.",
-      features: [
-        "Draw import and search",
-        "Matching engine",
-        "Offline support",
-        "Simple GUI"
-      ],
-      tags: ["C#", "WinForms"]
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const submitBtn = form.querySelector('.form-submit');
+    const originalHTML = submitBtn ? submitBtn.innerHTML : '';
+    if (submitBtn) {
+      submitBtn.disabled = true;
+      submitBtn.innerHTML = '<span>Sending…</span> <i class="fa-solid fa-spinner fa-spin"></i>';
     }
-  ];
+    try {
+      const formData = new FormData(form);
+      await fetch('/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: new URLSearchParams(formData).toString(),
+      });
+    } catch (_) {
+      // Local dev or offline — still show success so the experience flows
+    } finally {
+      form.hidden = true;
+      success.hidden = false;
+      if (submitBtn) {
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = originalHTML;
+      }
+    }
+  });
+}
 
-  const container = document.getElementById("projectsContainer");
-  const showMoreBtn = document.getElementById("showMoreBtn");
+/* ---------- 3D tilt on cards ---------- */
+function initTilt() {
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const touch = window.matchMedia('(hover: none)').matches;
+  if (reduce || touch) return;
+  document.addEventListener('mousemove', (e) => {
+    const card = e.target.closest('.project-card');
+    if (!card) {
+      document.querySelectorAll('.project-card.tilt-active').forEach(c => {
+        c.classList.remove('tilt-active');
+        c.style.removeProperty('--rx');
+        c.style.removeProperty('--ry');
+        c.style.removeProperty('--mx');
+        c.style.removeProperty('--my');
+      });
+      return;
+    }
+    const rect = card.getBoundingClientRect();
+    const x = (e.clientX - rect.left) / rect.width;
+    const y = (e.clientY - rect.top) / rect.height;
+    const rx = (0.5 - y) * 8;
+    const ry = (x - 0.5) * 10;
+    card.classList.add('tilt-active');
+    card.style.setProperty('--rx', rx.toFixed(2) + 'deg');
+    card.style.setProperty('--ry', ry.toFixed(2) + 'deg');
+    card.style.setProperty('--mx', (x * 100).toFixed(1) + '%');
+    card.style.setProperty('--my', (y * 100).toFixed(1) + '%');
+  });
+  document.addEventListener('mouseleave', () => {
+    document.querySelectorAll('.project-card.tilt-active').forEach(c => {
+      c.classList.remove('tilt-active');
+    });
+  });
+}
 
-  let projectsShown = 0;
-  const initialCount = 6;
+/* ---------- Nav ---------- */
+function initNav() {
+  const nav = document.getElementById('nav');
+  const toggle = document.getElementById('navToggle');
+  const links = document.getElementById('navLinks');
 
-  function renderProjects(count) {
-    for (let i = projectsShown; i < Math.min(projectsShown + count, projectsData.length); i++) {
-      const proj = projectsData[i];
+  const onScroll = () => {
+    nav.classList.toggle('scrolled', window.scrollY > 30);
+  };
+  onScroll();
+  window.addEventListener('scroll', onScroll, { passive: true });
 
-      const card = document.createElement("div");
-      card.className = "col-md-6 col-lg-4 project-item";
-      card.setAttribute("data-aos", "fade-up"); 
+  toggle?.addEventListener('click', () => links.classList.toggle('open'));
+  links?.querySelectorAll('a').forEach(a => a.addEventListener('click', () => links.classList.remove('open')));
+}
+
+/* ---------- Spotlight ---------- */
+function initSpotlight() {
+  const sp = document.getElementById('spotlight');
+  if (!sp) return;
+  window.addEventListener('mousemove', e => {
+    sp.style.left = e.clientX + 'px';
+    sp.style.top = e.clientY + 'px';
+    sp.style.opacity = '1';
+  });
+}
+
+/* ---------- Scroll progress ---------- */
+function initScrollProgress() {
+  const bar = document.getElementById('scrollProgress');
+  if (!bar) return;
+  const update = () => {
+    const h = document.documentElement;
+    const max = h.scrollHeight - h.clientHeight;
+    const pct = max > 0 ? (h.scrollTop / max) * 100 : 0;
+    bar.style.width = pct + '%';
+  };
+  window.addEventListener('scroll', update, { passive: true });
+  update();
+}
+
+/* ---------- Year ---------- */
+function initYear() {
+  const y = document.getElementById('year');
+  if (y) y.textContent = new Date().getFullYear();
+}
+
+/* ---------- Animated counters ---------- */
+function initCounters() {
+  const counters = document.querySelectorAll('.stat-number');
+  if (!counters.length) return;
+
+  const animate = (el) => {
+    const target = parseInt(el.dataset.count || '0', 10);
+    const duration = 1600;
+    const start = performance.now();
+    const tick = (now) => {
+      const t = Math.min((now - start) / duration, 1);
+      const eased = 1 - Math.pow(1 - t, 3);
+      el.textContent = Math.round(target * eased);
+      if (t < 1) requestAnimationFrame(tick);
+    };
+    requestAnimationFrame(tick);
+  };
+
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        animate(e.target);
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.4 });
+
+  counters.forEach(c => io.observe(c));
+}
+
+/* ---------- Skill bars ---------- */
+function initSkillBars() {
+  const fills = document.querySelectorAll('.bar-fill');
+  if (!fills.length) return;
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('animate');
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.3 });
+  fills.forEach(f => io.observe(f));
+}
+
+/* =========================================================
+   Project data
+   ========================================================= */
+const projectsData = [
+  // -------- Live SaaS landing pages --------
+  {
+    key: 'nexusai',
+    title: 'NexusAI — AI Platform Landing',
+    category: 'live',
+    featured: true,
+    live: 'https://nexusai-hamza.netlify.app/',
+    icon: 'fa-solid fa-brain',
+    images: ['images/Projects/nexusai/1.png', 'images/Projects/nexusai/2.png'],
+    desc: 'A live, production-deployed landing page for an AI platform brand. Modern dark UI, animated hero, feature sections, pricing, and conversion-focused CTAs. Built mobile-first with smooth scroll animations.',
+    features: [
+      'Fully responsive modern dark theme with animated hero',
+      'Conversion-focused pricing & feature sections',
+      'SEO-optimized semantic HTML structure',
+      'Deployed live on Netlify with CDN caching',
+      'Smooth scroll animations & micro-interactions'
+    ],
+    tags: [['Live', 'tag-multitenant'], ['HTML', 'tag-html'], ['CSS', 'tag-html'], ['JavaScript', 'tag-js'], ['Netlify', 'tag-netlify']]
+  },
+  {
+    key: 'stockflow',
+    title: 'StockFlow AI — Inventory SaaS Landing',
+    category: 'live',
+    featured: true,
+    live: 'https://stockflow-ai-hamza.netlify.app/',
+    icon: 'fa-solid fa-boxes-stacked',
+    images: ['images/Projects/stockflow/1.png', 'images/Projects/stockflow/2.png'],
+    desc: 'Live marketing site for an AI-powered inventory & stock management SaaS. Showcases product features, pricing tiers, and customer benefits with a clean conversion-driven layout.',
+    features: [
+      'Hero with animated product demo & USP highlights',
+      'Feature blocks for AI-powered stock predictions',
+      'Pricing tiers with comparison table',
+      'Customer testimonials & social proof sections',
+      'Deployed on Netlify with automatic HTTPS'
+    ],
+    tags: [['Live', 'tag-multitenant'], ['HTML', 'tag-html'], ['CSS', 'tag-html'], ['JavaScript', 'tag-js'], ['Netlify', 'tag-netlify']]
+  },
+  {
+    key: 'noor',
+    title: 'Noor Platform — SaaS Landing',
+    category: 'live',
+    live: 'https://noor-platform.netlify.app/',
+    icon: 'fa-regular fa-sun',
+    images: ['images/Projects/noor/1.png', 'images/Projects/noor/2.png'],
+    desc: 'Live SaaS landing page for the Noor Platform — clean, professional, and conversion-optimized. Focuses on premium typography, well-paced sections, and strong call-to-action funnel.',
+    features: [
+      'Premium typography and clean visual hierarchy',
+      'Hero, features, testimonials and pricing sections',
+      'Mobile-first responsive layout',
+      'Form-driven lead capture section',
+      'Deployed live on Netlify'
+    ],
+    tags: [['Live', 'tag-multitenant'], ['HTML', 'tag-html'], ['CSS', 'tag-html'], ['JavaScript', 'tag-js'], ['Netlify', 'tag-netlify']]
+  },
+
+  // -------- Full-stack enterprise apps --------
+  {
+    key: 'martpos',
+    title: 'Mart POS — Multi-Tenant Retail Suite',
+    category: 'fullstack',
+    featured: true,
+    icon: 'fa-solid fa-cash-register',
+    images: ['images/Projects/martpos/1.png', 'images/Projects/martpos/2.png', 'images/Projects/martpos/3.png'],
+    desc: 'A complete multi-tenant Point-of-Sale platform for retail marts. Includes inventory, accounting, sales, purchase, returns, supplier management, and rich reporting. Built with .NET API + Angular UI + Playwright e2e coverage.',
+    features: [
+      'Multi-tenant architecture with isolated tenant data',
+      'Full accounting integration (ledger, journal, trial balance)',
+      'Inventory, purchase, sales & return workflows',
+      'Role-based access control and audit logging',
+      'Playwright end-to-end test coverage',
+      'Modern Angular UI with PrimeNG components'
+    ],
+    tags: [['.NET Core', 'tag-net'], ['Angular', 'tag-angular'], ['SQL Server', 'tag-sql'], ['Multi-Tenant', 'tag-multitenant']]
+  },
+  {
+    key: 'estatepro',
+    title: 'EstatePro — Real Estate Agency System',
+    category: 'fullstack',
+    featured: true,
+    icon: 'fa-solid fa-building',
+    images: ['images/Projects/estatepro/1.png', 'images/Projects/estatepro/2.png', 'images/Projects/estatepro/3.png', 'images/Projects/estatepro/4.png'],
+    desc: 'End-to-end real estate management platform covering properties, clients, agents, listings, collection registers, and financial reports. Multi-phase enterprise build with deep gap analysis and Playwright e2e validation.',
+    features: [
+      'Property & listing management with media uploads',
+      'Client and agent CRM workflows',
+      'Collection register and receipt generation',
+      'Detailed financial and operational reports',
+      'Phase-based delivery with full QA cycles',
+      'Playwright automated test suite'
+    ],
+    tags: [['.NET Core', 'tag-net'], ['Angular', 'tag-angular'], ['SQL Server', 'tag-sql']]
+  },
+  {
+    key: 'clinic',
+    title: 'Clinic Management System',
+    category: 'fullstack',
+    mobile: true,
+    icon: 'fa-solid fa-stethoscope',
+    images: ['images/Projects/clinic/1.png', 'images/Projects/clinic/2.png', 'images/Projects/clinic/3.png', 'images/Projects/clinic/4.png'],
+    desc: 'Full clinic & healthcare management suite built using Clean Architecture — separate Core, Infrastructure, API, Web, and Mobile projects. Manages patients, appointments, prescriptions, billing, and pharmacy.',
+    features: [
+      'Clean Architecture (.Core / .Infrastructure / .API / .Web / .Mobile)',
+      'Patient registration, appointments, and visit history',
+      'Prescription, lab, and pharmacy modules',
+      'Billing, invoicing, and insurance workflows',
+      'Mobile companion app for on-the-go staff',
+      'Live deployment via ngrok for client demos'
+    ],
+    tags: [['.NET Core', 'tag-net'], ['Angular', 'tag-angular'], ['SQL Server', 'tag-sql']]
+  },
+  {
+    key: 'sms',
+    title: 'School Management System',
+    category: 'fullstack',
+    featured: true,
+    icon: 'fa-solid fa-graduation-cap',
+    images: [
+      'images/Projects/sms/1.png', 'images/Projects/sms/2.png', 'images/Projects/sms/3.png',
+      'images/Projects/sms/4.png', 'images/Projects/sms/5.png', 'images/Projects/sms/6.png',
+      'images/Projects/sms/7.png', 'images/Projects/sms/8.png', 'images/Projects/sms/9.png',
+      'images/Projects/sms/10.png'
+    ],
+    desc: 'Comprehensive School Management Suite (WAREERA) covering students, staff, attendance, fees, exams, timetables, and parent portals. Iteratively built with master prompts, gap analysis, and complete system flow specifications.',
+    features: [
+      'Student admission, profiles, and academic records',
+      'Attendance, fees, and exam result management',
+      'Staff and payroll management modules',
+      'Timetable, class, and section assignment',
+      'Parent portal with notifications and reports',
+      'Full system blueprint and visual flow specification'
+    ],
+    tags: [['.NET Core', 'tag-net'], ['Angular', 'tag-angular'], ['SQL Server', 'tag-sql']]
+  },
+  {
+    key: 'accountingsystem',
+    title: 'Accounting Management System',
+    category: 'fullstack',
+    icon: 'fa-solid fa-calculator',
+    images: ['images/Projects/accountingsystem/1.png', 'images/Projects/accountingsystem/2.png', 'images/Projects/accountingsystem/3.png'],
+    desc: 'Custom accounting platform with full chart-of-accounts, journals, ledgers, financial reports, and tenant-based isolation. Built as a paired API + Angular UI solution backed by SQL Server.',
+    features: [
+      'Chart of accounts and journal entry workflows',
+      'Trial balance, P&L and balance sheet reports',
+      'Voucher entry, posting, and reversal',
+      'Multi-tenant ready with role-based access',
+      'Excel imports for bulk data migration'
+    ],
+    tags: [['.NET Core', 'tag-net'], ['Angular', 'tag-angular'], ['SQL Server', 'tag-sql']]
+  },
+  {
+    key: 'eyeoptical',
+    title: 'Optical Store Management',
+    category: 'fullstack',
+    icon: 'fa-regular fa-eye',
+    images: ['images/Projects/eyeoptical/1.png', 'images/Projects/eyeoptical/2.png', 'images/Projects/eyeoptical/3.png', 'images/Projects/eyeoptical/4.png'],
+    desc: 'A specialized management platform for optical stores — covers prescriptions, frames inventory, lenses, sales, customer history, and admin reporting. Separate customer & admin Angular front-ends.',
+    features: [
+      'Prescription capture and customer eye-history tracking',
+      'Frames, lenses, and accessory inventory modules',
+      'Sales, invoices, and returns workflow',
+      'Dedicated Angular admin panel',
+      'API-first architecture for future mobile expansion'
+    ],
+    tags: [['.NET Core', 'tag-net'], ['Angular', 'tag-angular'], ['SQL Server', 'tag-sql']]
+  },
+  {
+    key: 'damcloth',
+    title: 'DAM-Cloth — Cloth Manufacturing Suite',
+    category: 'fullstack',
+    icon: 'fa-solid fa-shirt',
+    images: ['images/Projects/damcloth/1.png', 'images/Projects/damcloth/2.png', 'images/Projects/damcloth/3.png', 'images/Projects/damcloth/4.png'],
+    desc: 'Manufacturing & distribution suite tailored for the cloth/textile industry — designed for fabric inventory, production runs, dyeing, dispatch, and ledger management. Includes UI/UX-focused refinement passes.',
+    features: [
+      'Fabric inventory and production tracking',
+      'Dyeing and finishing job workflows',
+      'Dispatch, sales and ledger modules',
+      'Iterative UI/UX improvement plan',
+      'Database-backed with full migration scripts'
+    ],
+    tags: [['.NET Core', 'tag-net'], ['SQL Server', 'tag-sql']]
+  },
+
+  // -------- Desktop / POS / WinForms --------
+  {
+    key: 'sattarnoor',
+    title: 'Sattar Noor — Wholesale Trader POS',
+    category: 'desktop',
+    icon: 'fa-solid fa-store',
+    images: ['images/Projects/sattarnoor/1.png', 'images/Projects/sattarnoor/2.png', 'images/Projects/sattarnoor/3.png'],
+    desc: 'Desktop POS and accounting system for a wholesale trader (Faisal Javed Traders) — covers product master, sale and purchase bills, cash book with dual receipt/payment sides, customer ledgers, and end-of-day reporting. Built with C# WinForms + SQL Server.',
+    features: [
+      'Bill Book — sale and purchase invoicing per product',
+      'Cash Book with receipt and payment sides + running balance',
+      'Customer ledger with opening/closing balances',
+      'Product master with code, price, and stock',
+      'Soda Book module for product-specific reporting',
+      'Per-counter login and role-based access'
+    ],
+    tags: [['C# WinForms', 'tag-winforms'], ['SQL Server', 'tag-sql']]
+  },
+  {
+    key: 'restaurant',
+    title: 'Burger Bache — Restaurant POS and Inventory',
+    category: 'desktop',
+    icon: 'fa-solid fa-burger',
+    images: ['images/Projects/restaurant/1.png', 'images/Projects/restaurant/2.png', 'images/Projects/restaurant/3.png'],
+    desc: 'Full restaurant management system for Burger Bache — touch-friendly POS with visual menu, stock-in/out tracking, sale history with date filters, and printable sale reports. Built with C# WinForms on SQL Server.',
+    features: [
+      'Visual touch POS with product images by category',
+      'Sale history with date-range filter and totals',
+      'Stock-in entry and stock-in history',
+      'Manage Products / Manage Customer modules',
+      'Print Report for daily / monthly sales',
+      'Multi-user with admin role and dashboard analytics'
+    ],
+    tags: [['C# WinForms', 'tag-winforms'], ['SQL Server', 'tag-sql']]
+  },
+  {
+    key: 'inventorymanagement',
+    title: 'Inventory Management System',
+    category: 'desktop',
+    icon: 'fa-solid fa-warehouse',
+    images: ['images/Projects/inventorymanagement/1.png', 'images/Projects/inventorymanagement/2.png', 'images/Projects/inventorymanagement/3.png'],
+    desc: 'Desktop inventory tracking solution focused on stock movements, low-stock alerts, supplier records, and printable reports. Includes migration utilities and a flexible product schema.',
+    features: [
+      'Stock movement logging (in / out / adjustment)',
+      'Low-stock alerts and reorder thresholds',
+      'Category and supplier management',
+      'Monthly and YTD reporting',
+      'SQL migration scripts included'
+    ],
+    tags: [['C# WinForms', 'tag-winforms'], ['SQL Server', 'tag-sql']]
+  },
+
+  // -------- Landing pages --------
+  {
+    key: 'delgatruck',
+    title: 'Delga Truck — Shopify Storefront',
+    category: 'landing',
+    icon: 'fa-solid fa-truck',
+    images: ['images/Projects/delgatruck/1.png', 'images/Projects/delgatruck/2.png'],
+    desc: 'Custom Shopify theme + client storefront for Delga Truck. Includes a packaged theme, custom client integrations, and an audit pipeline to validate the storefront before deployment.',
+    features: [
+      'Custom Shopify Liquid theme & sections',
+      'Packaged theme zip ready for upload',
+      'Client-side custom integrations',
+      'Audit script for storefront validation',
+      'Asset and screenshot library'
+    ],
+    tags: [['Shopify', 'tag-shopify'], ['HTML', 'tag-html'], ['CSS', 'tag-html'], ['JavaScript', 'tag-js']]
+  },
+
+  // -------- AI / Automation --------
+  {
+    key: 'trendflow',
+    title: 'TrendFlow — Multi-Channel AI YouTube Automation',
+    category: 'ai',
+    featured: true,
+    icon: 'fa-brands fa-youtube',
+    images: [
+      'images/Projects/trendflow/1.png', 'images/Projects/trendflow/2.png',
+      'images/Projects/trendflow/3.png', 'images/Projects/trendflow/4.png',
+      'images/Projects/trendflow/5.png', 'images/Projects/trendflow/6.png',
+      'images/Projects/trendflow/7.png', 'images/Projects/trendflow/8.png'
+    ],
+    desc: 'A complete end-to-end Python automation platform that runs 5+ YouTube channels in parallel — researches trends, generates AI scripts, synthesises voiceovers, builds videos from stock clips, and uploads automatically on a schedule. Full pipeline orchestration with multi-account, multi-channel support.',
+    features: [
+      'Multi-channel parallel pipeline (5+ YouTube channels)',
+      'Trend research → AI script → TTS → video assembly → upload',
+      'Per-channel config: topic, voice, language, quality, schedule',
+      'Cross-session resume with pipeline checkpoints',
+      'Dry-run mode for safe content review',
+      'Schedule manager with timezone-aware cron',
+      'Built-in asset browser and content preview'
+    ],
+    tags: [['Python', 'tag-python'], ['AI / LLM', 'tag-ai'], ['Automation', 'tag-ai']]
+  },
+  {
+    key: 'leedshunter',
+    title: 'Leeds Hunter — Facebook Lead Scanner',
+    category: 'ai',
+    icon: 'fa-brands fa-facebook',
+    images: ['images/Projects/leedshunter/1.png', 'images/Projects/leedshunter/2.png', 'images/Projects/leedshunter/3.png', 'images/Projects/leedshunter/4.png'],
+    desc: 'Targeted Facebook lead-scanner desktop app built in Python — scans groups and pages with configurable keyword/scoring rules, AI-classifies posts as real opportunities, and surfaces qualified leads in a clean dashboard for one-click follow-up.',
+    features: [
+      'Keyword-driven scanning of Facebook groups/pages',
+      'AI scoring & classification of posts (intent + quality)',
+      'Leads dashboard with filtering, search and bulk actions',
+      'Mark Read / Favorite / Contacted workflow',
+      'Configurable scan settings (time range, max posts, scroll speed)',
+      'Anti-detection random delay built in',
+      'Session-persistent scan history and exports'
+    ],
+    tags: [['Python', 'tag-python'], ['AI / LLM', 'tag-ai'], ['Automation', 'tag-ai']]
+  }
+];
+
+/* =========================================================
+   Render projects
+   ========================================================= */
+function initProjects() {
+  const grid = document.getElementById('projectsGrid');
+  const filters = document.querySelectorAll('.filter-btn');
+  const showMore = document.getElementById('showMoreBtn');
+  if (!grid) return;
+
+  let currentFilter = 'all';
+  let expanded = false;
+  const INITIAL = 6;
+
+  const render = () => {
+    grid.innerHTML = '';
+
+    const filtered = currentFilter === 'all'
+      ? projectsData
+      : projectsData.filter(p => p.category === currentFilter);
+
+    const visibleCount = expanded ? filtered.length : Math.min(INITIAL, filtered.length);
+
+    filtered.forEach((p, i) => {
+      const card = document.createElement('article');
+      let cls = 'project-card';
+      if (i >= visibleCount) cls += ' hidden';
+      if (p.mobile) cls += ' project-card--mobile';
+      card.className = cls;
+      card.setAttribute('data-aos', 'fade-up');
+      card.setAttribute('data-aos-delay', String((i % 3) * 80));
+
+      const firstImg = (p.images && p.images[0]) || '';
+      const liveBadge = p.live
+        ? `<span class="project-live-badge"><span class="live-dot"></span>Live</span>` : '';
+      const featuredBadge = p.featured
+        ? `<span class="project-featured-badge"><i class="fa-solid fa-star"></i>Featured</span>` : '';
+
+      const tagsHtml = p.tags.map(([label, cls]) =>
+        `<span class="tag ${cls}">${escapeAttr(label)}</span>`).join('');
+
+      const placeholder = buildPlaceholderHtml(p);
+
+      const backdrop = (firstImg && p.mobile)
+        ? `<div class="media-backdrop" style="background-image:url('${escapeAttr(firstImg)}')"></div>`
+        : '';
+
+      const mediaHtml = firstImg
+        ? `${backdrop}<img src="${escapeAttr(firstImg)}" alt="${escapeAttr(p.title)}" loading="lazy"
+             onerror="this.parentElement.innerHTML=this.dataset.fb;"
+             data-fb="${escapeAttr(placeholder)}">`
+        : placeholder;
+
+      const urlText = p.live
+        ? p.live.replace(/^https?:\/\//, '').replace(/\/$/, '')
+        : `${p.key}.local`;
 
       card.innerHTML = `
-        <div class="project-card position-relative" data-project="${proj.key}">
-          <div class="project-media">
-            <img src="${proj.img[0]}" alt="${proj.title}" class="img-fluid">
-            <div class="project-overlay">
-              <button class="btn btn-light view-project-btn">View Project</button>
-            </div>
+        <div class="project-frame">
+          <div class="frame-chrome">
+            <span class="dot dot-r"></span>
+            <span class="dot dot-y"></span>
+            <span class="dot dot-g"></span>
+            <span class="frame-url">${escapeAttr(urlText)}</span>
           </div>
-          <div class="project-info p-3">
-            <h5>${proj.title}</h5>
-            <p>${proj.desc}</p>
-            <div class="project-tags">
-            ${proj.tags.map(tag => {
-              const color = tagColors[tag] || "info"; // fallback color
-              return `<span class="badge bg-${color}">${tag}</span>`;
-            }).join("")}
+          <div class="project-media">
+            ${mediaHtml}
+            <div class="project-badges">
+              ${featuredBadge}
+              ${liveBadge}
+            </div>
+            <div class="project-overlay">
+              <span class="view-btn">
+                <i class="fa-regular fa-eye"></i> View Project
+              </span>
             </div>
           </div>
         </div>
+        <div class="project-info">
+          <h3>${escapeAttr(p.title)}</h3>
+          <p>${escapeAttr(p.desc)}</p>
+          <div class="project-tags">${tagsHtml}</div>
+        </div>
       `;
-      container.appendChild(card);
+
+      card.addEventListener('click', () => openModal(p));
+      grid.appendChild(card);
+    });
+
+    if (filtered.length <= INITIAL || expanded) {
+      showMore.style.display = filtered.length <= INITIAL ? 'none' : 'inline-flex';
+    } else {
+      showMore.style.display = 'inline-flex';
     }
 
-    projectsShown += count;
+    AOS.refresh();
+  };
 
-    if (projectsShown >= projectsData.length) {
-      showMoreBtn.style.display = "none";
-    }
+  filters.forEach(btn => {
+    btn.addEventListener('click', () => {
+      filters.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      currentFilter = btn.dataset.filter;
+      expanded = false;
+      showMore.classList.remove('expanded');
+      showMore.querySelector('span').textContent = 'Show More Projects';
+      render();
+    });
+  });
 
-     AOS.refresh();
+  showMore?.addEventListener('click', () => {
+    expanded = !expanded;
+    showMore.classList.toggle('expanded', expanded);
+    showMore.querySelector('span').textContent = expanded ? 'Show Less' : 'Show More Projects';
+    render();
+  });
+
+  render();
+}
+
+/* =========================================================
+   Project modal with image gallery
+   ========================================================= */
+let modalState = { project: null, index: 0 };
+
+function escapeAttr(s) {
+  return String(s).replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/'/g, '&#39;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+}
+
+function buildPlaceholderHtml(p) {
+  return `<div class="media-placeholder">
+    <div class="placeholder-content">
+      <div class="placeholder-icon"><i class="${p.icon}"></i></div>
+      <div class="placeholder-title">${escapeAttr(p.title)}</div>
+    </div>
+  </div>`;
+}
+
+function openModal(p) {
+  const modal = document.getElementById('projectModal');
+  const title = document.getElementById('modalTitle');
+  const desc = document.getElementById('modalDesc');
+  const tagsEl = document.getElementById('modalTags');
+  const features = document.getElementById('modalFeatures');
+  const actions = document.getElementById('modalActions');
+  const stage = document.getElementById('galleryStage');
+  const thumbs = document.getElementById('galleryThumbs');
+
+  if (!modal || !stage || !thumbs) return;
+
+  modal.classList.toggle('modal--mobile', !!p.mobile);
+  modalState = { project: p, index: 0 };
+
+  title.textContent = p.title;
+  desc.textContent = p.desc;
+
+  tagsEl.innerHTML = p.tags.map(([l, c]) => `<span class="tag ${c}">${l}</span>`).join('');
+  features.innerHTML = p.features.map(f => `<li>${f}</li>`).join('');
+
+  const acts = [];
+  if (p.live) {
+    acts.push(`<a href="${p.live}" target="_blank" rel="noopener" class="btn btn-primary">
+      <i class="fa-solid fa-arrow-up-right-from-square"></i> Visit Live Site
+    </a>`);
   }
+  acts.push(`<a href="https://github.com/HAMZA-MEMON-0" target="_blank" rel="noopener" class="btn btn-ghost">
+    <i class="fa-brands fa-github"></i> View GitHub
+  </a>`);
+  actions.innerHTML = acts.join('');
 
-  // Initial render
-  renderProjects(initialCount);
+  const setMain = (i) => {
+    modalState.index = i;
+    const src = p.images[i];
+    const placeholderHtml = buildPlaceholderHtml(p);
 
-  // Show more button click
-  showMoreBtn.addEventListener("click", () => {
-    renderProjects(6);
-  });
+    const backdrop = (src && p.mobile)
+      ? `<div class="media-backdrop" style="background-image:url('${escapeAttr(src)}')"></div>`
+      : '';
 
-  // Handle View Project click
-  container.addEventListener("click", function (e) {
-    const btn = e.target.closest(".view-project-btn");
-    if (!btn) return;
+    // Always rebuild stage contents from scratch — never mutate detached nodes
+    stage.innerHTML = src
+      ? `${backdrop}<img src="${escapeAttr(src)}" alt="${escapeAttr(p.title)}"
+          onerror="this.parentElement.innerHTML = this.dataset.fb;"
+          data-fb="${escapeAttr(placeholderHtml)}">`
+      : placeholderHtml;
 
-    const card = btn.closest(".project-card");
-    const key = card.getAttribute("data-project");
-    const proj = projectsData.find(p => p.key === key);
-    if (!proj) return;
-
-    // Set modal content
-    document.getElementById("projectModalLabel").textContent = proj.title;
-    document.getElementById("projectModalDesc").textContent = proj.desc;
-
-    const gallery = document.getElementById("projectModalGallery");
-    gallery.innerHTML = "";
-
-    // Decide layout based on image count
-    const isTwoImages = proj.img.length === 2;
-    const isThreeOrMore = proj.img.length >= 3;
-
-    // Apply layout styles
-    gallery.className = isTwoImages
-      ? "d-flex gap-3 flex-wrap justify-content-start align-items-start"
-      : "d-grid gap-3";
-    gallery.style.gridTemplateColumns = isThreeOrMore ? "repeat(auto-fit, minmax(120px, 1fr))" : "none";
-
-    proj.img.forEach(src => {
-      const img = document.createElement("img");
-      img.src = src;
-      img.alt = proj.title;
-      img.style.width = isTwoImages ? "48%" : "100%";
-      img.style.height = "150px";
-      img.style.objectFit = "cover";
-      img.style.borderRadius = "10px";
-      img.style.boxShadow = "0 4px 12px rgba(0, 0, 0, 0.3)";
-      img.style.transition = "transform 0.3s ease";
-      img.addEventListener("mouseenter", () => img.style.transform = "scale(1.05)");
-      img.addEventListener("mouseleave", () => img.style.transform = "scale(1)");
-      gallery.appendChild(img);
+    thumbs.querySelectorAll('img, .thumb-ph').forEach((t, ti) => {
+      t.classList.toggle('active', ti === i);
     });
+  };
 
-    const featuresList = document.getElementById("projectModalFeatures");
-    featuresList.innerHTML = "";
-    proj.features.forEach(f => {
-      const li = document.createElement("li");
-      li.textContent = f;
-      featuresList.appendChild(li);
-    });
+  thumbs.innerHTML = p.images.map((src, i) => {
+    if (!src) {
+      return `<div class="thumb-ph media-placeholder" data-i="${i}"></div>`;
+    }
+    return `<img src="${escapeAttr(src)}" alt="${escapeAttr(p.title)} ${i + 1}" data-i="${i}"
+       onerror="this.outerHTML='<div class=\\'thumb-ph media-placeholder\\' data-i=&quot;${i}&quot;></div>';">`;
+  }).join('');
 
-    new bootstrap.Modal(document.getElementById("projectModal")).show();
-  });
+  // Use event delegation so it works even after onerror replaces thumb img with div
+  thumbs.onclick = (e) => {
+    const t = e.target.closest('[data-i]');
+    if (t) setMain(parseInt(t.dataset.i, 10));
+  };
 
+  const prevBtn = document.querySelector('.gallery-prev');
+  const nextBtn = document.querySelector('.gallery-next');
+  const showNav = p.images.length > 1;
+  if (prevBtn) prevBtn.style.display = showNav ? 'inline-flex' : 'none';
+  if (nextBtn) nextBtn.style.display = showNav ? 'inline-flex' : 'none';
+
+  setMain(0);
+
+  modal.classList.add('active');
+  modal.setAttribute('aria-hidden', 'false');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeModal() {
+  const modal = document.getElementById('projectModal');
+  modal.classList.remove('active');
+  modal.setAttribute('aria-hidden', 'true');
+  document.body.style.overflow = '';
+}
+
+document.addEventListener('click', (e) => {
+  if (e.target.matches('[data-close]')) closeModal();
+});
+
+document.querySelector('.gallery-prev')?.addEventListener('click', () => {
+  const p = modalState.project;
+  if (!p) return;
+  const next = (modalState.index - 1 + p.images.length) % p.images.length;
+  document.querySelector(`.gallery-thumbs img[data-i="${next}"]`)?.click();
+});
+
+document.querySelector('.gallery-next')?.addEventListener('click', () => {
+  const p = modalState.project;
+  if (!p) return;
+  const next = (modalState.index + 1) % p.images.length;
+  document.querySelector(`.gallery-thumbs img[data-i="${next}"]`)?.click();
+});
+
+document.addEventListener('keydown', (e) => {
+  const modal = document.getElementById('projectModal');
+  if (!modal.classList.contains('active')) return;
+  if (e.key === 'Escape') closeModal();
+  if (e.key === 'ArrowLeft') document.querySelector('.gallery-prev')?.click();
+  if (e.key === 'ArrowRight') document.querySelector('.gallery-next')?.click();
+});
