@@ -16,43 +16,70 @@ document.addEventListener('DOMContentLoaded', () => {
   initContactForm();
 });
 
-/* ---------- Contact form (Netlify Forms) ---------- */
+/* ---------- Contact form (FormSubmit.co — works on any static host) ---------- */
 function initContactForm() {
   const form = document.getElementById('contactForm');
   const success = document.getElementById('formSuccess');
   if (!form || !success) return;
 
-  // If redirected back from Netlify with ?submitted=true, skip straight to success
-  if (new URLSearchParams(location.search).get('submitted') === 'true') {
-    form.hidden = true;
-    success.hidden = false;
-    success.scrollIntoView({ behavior: 'smooth', block: 'center' });
-  }
+  const setBusy = (btn, busy, originalHTML) => {
+    if (!btn) return;
+    btn.disabled = busy;
+    btn.innerHTML = busy
+      ? '<span>Sending…</span> <i class="fa-solid fa-spinner fa-spin"></i>'
+      : originalHTML;
+  };
+
+  const buildMailto = (formData) => {
+    const name = formData.get('name') || '';
+    const email = formData.get('email') || '';
+    const type = formData.get('project_type') || '';
+    const message = formData.get('message') || '';
+    const subject = encodeURIComponent(`Portfolio enquiry from ${name}`);
+    const body = encodeURIComponent(
+      `Name: ${name}\nEmail: ${email}\nProject type: ${type}\n\n${message}`
+    );
+    return `mailto:hamza.memon262830@gmail.com?subject=${subject}&body=${body}`;
+  };
 
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
     const submitBtn = form.querySelector('.form-submit');
     const originalHTML = submitBtn ? submitBtn.innerHTML : '';
-    if (submitBtn) {
-      submitBtn.disabled = true;
-      submitBtn.innerHTML = '<span>Sending…</span> <i class="fa-solid fa-spinner fa-spin"></i>';
-    }
-    try {
-      const formData = new FormData(form);
-      await fetch('/', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: new URLSearchParams(formData).toString(),
-      });
-    } catch (_) {
-      // Local dev or offline — still show success so the experience flows
-    } finally {
+    setBusy(submitBtn, true, originalHTML);
+
+    const formData = new FormData(form);
+    // Honeypot — if bot fills it, silently no-op
+    if (formData.get('bot-field')) {
+      setBusy(submitBtn, false, originalHTML);
       form.hidden = true;
       success.hidden = false;
-      if (submitBtn) {
-        submitBtn.disabled = false;
-        submitBtn.innerHTML = originalHTML;
-      }
+      return;
+    }
+
+    const payload = Object.fromEntries(formData);
+
+    try {
+      const res = await fetch(form.action, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify(payload),
+      });
+      if (!res.ok) throw new Error('Form service responded ' + res.status);
+      form.hidden = true;
+      success.hidden = false;
+      success.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    } catch (err) {
+      // Fallback: open the user's email client with everything pre-filled
+      console.warn('Form POST failed, falling back to mailto:', err);
+      window.location.href = buildMailto(formData);
+      // Still show success state after a beat so the UX completes
+      setTimeout(() => {
+        form.hidden = true;
+        success.hidden = false;
+      }, 600);
+    } finally {
+      setBusy(submitBtn, false, originalHTML);
     }
   });
 }
