@@ -372,23 +372,6 @@ const projectsData = [
 
   // -------- Desktop / POS / WinForms --------
   {
-    key: 'sattarnoor',
-    title: 'Sattar Noor — Wholesale Trader POS',
-    category: 'desktop',
-    icon: 'fa-solid fa-store',
-    images: ['images/Projects/sattarnoor/1.png', 'images/Projects/sattarnoor/2.png', 'images/Projects/sattarnoor/3.png'],
-    desc: 'Desktop POS and accounting system for a wholesale trader (Faisal Javed Traders) — covers product master, sale and purchase bills, cash book with dual receipt/payment sides, customer ledgers, and end-of-day reporting. Built with C# WinForms + SQL Server.',
-    features: [
-      'Bill Book — sale and purchase invoicing per product',
-      'Cash Book with receipt and payment sides + running balance',
-      'Customer ledger with opening/closing balances',
-      'Product master with code, price, and stock',
-      'Soda Book module for product-specific reporting',
-      'Per-counter login and role-based access'
-    ],
-    tags: [['C# WinForms', 'tag-winforms'], ['SQL Server', 'tag-sql']]
-  },
-  {
     key: 'restaurant',
     title: 'Burger Bache — Restaurant POS and Inventory',
     category: 'desktop',
@@ -407,17 +390,19 @@ const projectsData = [
   },
   {
     key: 'inventorymanagement',
-    title: 'Inventory Management System',
+    title: 'Inventory Management & Trader POS',
     category: 'desktop',
     icon: 'fa-solid fa-warehouse',
     images: ['images/Projects/inventorymanagement/1.png', 'images/Projects/inventorymanagement/2.png', 'images/Projects/inventorymanagement/3.png'],
-    desc: 'Desktop inventory tracking solution focused on stock movements, low-stock alerts, supplier records, and printable reports. Includes migration utilities and a flexible product schema.',
+    desc: 'Complete desktop POS and inventory system for a wholesale trader (Faisal Javed Traders) — Bill Book for sale/purchase invoicing, Cash Book with dual receipt/payment sides, customer ledgers, product master, and end-of-day reports. Built with C# WinForms + SQL Server, with migration utilities and a flexible product schema.',
     features: [
+      'Bill Book — sale and purchase invoicing per product',
+      'Cash Book with receipt and payment sides + running balance',
+      'Customer ledger with opening/closing balances',
+      'Product master with code, price, and live stock',
       'Stock movement logging (in / out / adjustment)',
       'Low-stock alerts and reorder thresholds',
-      'Category and supplier management',
-      'Monthly and YTD reporting',
-      'SQL migration scripts included'
+      'Per-counter login and role-based access'
     ],
     tags: [['C# WinForms', 'tag-winforms'], ['SQL Server', 'tag-sql']]
   },
