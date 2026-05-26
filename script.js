@@ -323,19 +323,29 @@ const projectsData = [
   },
   {
     key: 'accountingsystem',
-    title: 'Accounting Management System',
+    title: 'Business Manager — Orders, Inventory & Accounting',
     category: 'fullstack',
-    icon: 'fa-solid fa-calculator',
-    images: ['images/Projects/accountingsystem/1.png', 'images/Projects/accountingsystem/2.png', 'images/Projects/accountingsystem/3.png'],
-    desc: 'Custom accounting platform with full chart-of-accounts, journals, ledgers, financial reports, and tenant-based isolation. Built as a paired API + Angular UI solution backed by SQL Server.',
-    features: [
-      'Chart of accounts and journal entry workflows',
-      'Trial balance, P&L and balance sheet reports',
-      'Voucher entry, posting, and reversal',
-      'Multi-tenant ready with role-based access',
-      'Excel imports for bulk data migration'
+    featured: true,
+    icon: 'fa-solid fa-chart-line',
+    images: [
+      'images/Projects/accountingsystem/1.png', 'images/Projects/accountingsystem/2.png',
+      'images/Projects/accountingsystem/3.png', 'images/Projects/accountingsystem/4.png',
+      'images/Projects/accountingsystem/5.png', 'images/Projects/accountingsystem/6.png',
+      'images/Projects/accountingsystem/7.png', 'images/Projects/accountingsystem/8.png',
+      'images/Projects/accountingsystem/9.png', 'images/Projects/accountingsystem/10.png'
     ],
-    tags: [['.NET Core', 'tag-net'], ['Angular', 'tag-angular'], ['SQL Server', 'tag-sql']]
+    desc: 'A full-stack Business Manager platform that unifies orders, suppliers, products, stock, expenses, payments and accounting in one place. Clean SaaS-style dashboard with KPI cards, shipment/payment status charts, and revenue analytics — backed by a documented .NET AccountingAPI (Swagger / OpenAPI 3.0) and a responsive Angular UI on SQL Server.',
+    features: [
+      'Dashboard with KPIs: orders, revenue, net profit, cash balance, stock value',
+      'Shipment & payment status donut charts + revenue/profit bars',
+      'Full order lifecycle: create, track, fulfil, return',
+      'Suppliers, Products, Stock Purchases & live Stock Levels',
+      'Expenses & Payments modules with category breakdown',
+      'Documented REST API via Swagger UI (OpenAPI 3.0)',
+      'Admin reset-data endpoint for safe demo seeding',
+      'Responsive Angular front-end with collapsible side nav'
+    ],
+    tags: [['.NET Core', 'tag-net'], ['Angular', 'tag-angular'], ['SQL Server', 'tag-sql'], ['REST API', 'tag-azure']]
   },
   {
     key: 'eyeoptical',
