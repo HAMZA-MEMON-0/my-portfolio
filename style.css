@@ -943,6 +943,118 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
 }
 
 /* =========================================================
+   Services
+   ========================================================= */
+.services {
+  padding: 100px 0 40px;
+  position: relative;
+  z-index: 2;
+}
+
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 22px;
+}
+
+.service-card {
+  position: relative;
+  background: var(--grad-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 32px 28px;
+  backdrop-filter: blur(10px);
+  transition: var(--transition);
+  overflow: hidden;
+}
+
+.service-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: var(--radius);
+  padding: 1px;
+  background: var(--grad-primary);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0;
+  transition: opacity var(--transition);
+  pointer-events: none;
+}
+
+.service-card:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-md);
+  border-color: var(--border-strong);
+}
+
+.service-card:hover::before { opacity: 1; }
+
+.service-icon {
+  width: 58px;
+  height: 58px;
+  border-radius: 16px;
+  background: var(--grad-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  color: white;
+  margin-bottom: 20px;
+  box-shadow: 0 10px 28px rgba(181, 55, 242, 0.3);
+  transition: transform var(--transition);
+}
+
+.service-card:hover .service-icon { transform: scale(1.08) rotate(-4deg); }
+
+.service-icon--shopify {
+  background: linear-gradient(135deg, #95bf47, #5e8e3e);
+  box-shadow: 0 10px 28px rgba(149, 191, 71, 0.3);
+}
+
+.service-icon--ai {
+  background: linear-gradient(135deg, #ff3cac, #b537f2);
+  box-shadow: 0 10px 28px rgba(255, 60, 172, 0.3);
+}
+
+.service-card h3 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-bottom: 10px;
+  letter-spacing: -0.01em;
+}
+
+.service-card p {
+  color: var(--text-muted);
+  font-size: 0.92rem;
+  line-height: 1.6;
+  margin-bottom: 16px;
+}
+
+.service-tech {
+  display: block;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.75rem;
+  color: var(--cyan);
+  letter-spacing: -0.01em;
+  padding-top: 14px;
+  border-top: 1px solid var(--border);
+}
+
+.services-cta {
+  text-align: center;
+  margin-top: 48px;
+}
+
+.services-cta p {
+  color: var(--text-soft);
+  font-size: 1.05rem;
+  margin-bottom: 16px;
+}
+
+/* =========================================================
    Projects
    ========================================================= */
 .projects {
