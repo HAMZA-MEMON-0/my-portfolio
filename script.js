@@ -330,6 +330,7 @@ const projectsData = [
     title: 'School Management System',
     category: 'fullstack',
     featured: true,
+    live: 'https://schoolms-hamza.netlify.app/',
     icon: 'fa-solid fa-graduation-cap',
     images: [
       'images/Projects/sms/1.png', 'images/Projects/sms/2.png', 'images/Projects/sms/3.png',
