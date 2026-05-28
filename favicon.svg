@@ -1,4 +1,11 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
-  <rect width="64" height="64" rx="12" fill="#0f0c29"/>
-  <text x="32" y="44" font-family="Segoe UI, sans-serif" font-size="30" font-weight="700" fill="#00c9ff" text-anchor="middle">HM</text>
+  <defs>
+    <linearGradient id="hm" x1="0" y1="0" x2="64" y2="64" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#00d4ff"/>
+      <stop offset="0.55" stop-color="#b537f2"/>
+      <stop offset="1" stop-color="#ff3cac"/>
+    </linearGradient>
+  </defs>
+  <rect width="64" height="64" rx="16" fill="url(#hm)"/>
+  <text x="32" y="43" font-family="'Space Grotesk', 'Segoe UI', sans-serif" font-size="30" font-weight="700" fill="#ffffff" text-anchor="middle" letter-spacing="-1">HM</text>
 </svg>

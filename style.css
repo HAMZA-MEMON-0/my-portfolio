@@ -47,6 +47,7 @@
 html {
   scroll-behavior: smooth;
   scroll-padding-top: 90px;
+  overflow-x: hidden;
 }
 
 body {
@@ -59,6 +60,8 @@ body {
   -moz-osx-font-smoothing: grayscale;
   min-height: 100vh;
   position: relative;
+  width: 100%;
+  max-width: 100%;
 }
 
 img { max-width: 100%; display: block; }
@@ -159,6 +162,11 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   transition: opacity 0.3s;
   opacity: 0;
   mix-blend-mode: screen;
+}
+
+/* No cursor on touch devices — spotlight is pointless and can cause overflow */
+@media (hover: none) {
+  .spotlight { display: none; }
 }
 
 @media (hover: hover) {
@@ -269,6 +277,9 @@ button { font-family: inherit; cursor: pointer; border: none; background: none; 
   flex-direction: column;
   gap: 5px;
   padding: 10px;
+  position: relative;
+  z-index: 60;
+  background: transparent;
 }
 
 .nav-toggle span {
