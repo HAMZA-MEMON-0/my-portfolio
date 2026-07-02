@@ -215,6 +215,124 @@ function initSkillBars() {
    Project data
    ========================================================= */
 const projectsData = [
+  // -------- Flagship full-stack products --------
+  {
+    key: 'hms',
+    title: 'MediCare HMS — Hospital Management System (Web + Android)',
+    category: 'fullstack',
+    featured: true,
+    live: 'https://hms.frsoftwaresolutions.online/',
+    demo: { email: 'demo@hms.com', password: 'Asdf@123' },
+    icon: 'fa-solid fa-hospital',
+    images: [
+      'images/Projects/hms/1.png', 'images/Projects/hms/2.png', 'images/Projects/hms/3.png',
+      'images/Projects/hms/4.png', 'images/Projects/hms/5.png', 'images/Projects/hms/6.png',
+      'images/Projects/hms/7.png', 'images/Projects/hms/8.png', 'images/Projects/hms/9.png',
+      'images/Projects/hms/10.jpeg', 'images/Projects/hms/11.jpeg'
+    ],
+    desc: 'A complete Hospital Management System running on both Web and Android — one secure platform for patients, appointments, pharmacy, laboratory, billing, wards, payroll and a full double-entry accounting suite. The Ionic + Angular mobile app shares the same backend, so staff can manage operations anywhere, perfectly in sync with the web app.',
+    features: [
+      'Patient registration & Electronic Medical Records (EMR)',
+      'OPD reception with live token queue & appointment scheduling',
+      'Pharmacy, inventory & laboratory with printable test reports',
+      'Billing with professional A4 invoices; ward & bed live status',
+      'Payroll/HR + full double-entry accounting (Trial Balance, P&L, Balance Sheet)',
+      'Android companion app (Ionic + Capacitor) on the same secure API'
+    ],
+    tags: [['.NET Core', 'tag-net'], ['Angular', 'tag-angular'], ['SQL Server', 'tag-sql'], ['Android · Ionic', 'tag-azure'], ['Live', 'tag-multitenant']]
+  },
+  {
+    key: 'dineflow',
+    title: 'DineFlow — Smart Restaurant Management SaaS',
+    category: 'fullstack',
+    featured: true,
+    icon: 'fa-solid fa-utensils',
+    images: [
+      'images/Projects/dineflow/1.png', 'images/Projects/dineflow/2.png', 'images/Projects/dineflow/3.png',
+      'images/Projects/dineflow/4.png', 'images/Projects/dineflow/5.png', 'images/Projects/dineflow/6.png',
+      'images/Projects/dineflow/7.png', 'images/Projects/dineflow/8.png', 'images/Projects/dineflow/9.png'
+    ],
+    desc: 'An all-in-one, multi-tenant restaurant operating system: touch POS, kitchen display, QR self-ordering, an online storefront, inventory/recipe costing and a real double-entry accounting engine. One login runs the whole shop — from a guest tap at the table to the ledger entry it posts. Built for the Pakistan market (PKR, Urdu/RTL, local payment rails).',
+    features: [
+      'Fast touch POS: dine-in / takeaway / delivery, split payments, thermal + KOT printing',
+      'Real-time Kitchen Display System (SignalR) with per-order timers',
+      'Guest QR scan-to-order + public online storefront (no app install)',
+      'True double-entry accounting: every sale, void & refund auto-posts a balanced journal',
+      'Financial statements from the ledger: P&L, Balance Sheet, Cash Flow, Trial Balance',
+      'True multi-tenant & multi-branch, role-based access, JWT auth, audit logging'
+    ],
+    tags: [['.NET 9', 'tag-net'], ['Angular 21', 'tag-angular'], ['SQL Server', 'tag-sql'], ['SignalR', 'tag-azure'], ['Multi-Tenant', 'tag-multitenant']]
+  },
+  {
+    key: 'saadgi',
+    title: 'SAADGI — Luxury Modest-Fashion E-Commerce',
+    category: 'fullstack',
+    featured: true,
+    live: 'https://saadgiwear.com',
+    icon: 'fa-solid fa-bag-shopping',
+    images: [
+      'images/Projects/saadgi/1.png', 'images/Projects/saadgi/2.png', 'images/Projects/saadgi/3.png',
+      'images/Projects/saadgi/4.png', 'images/Projects/saadgi/5.png', 'images/Projects/saadgi/6.png',
+      'images/Projects/saadgi/7.png', 'images/Projects/saadgi/8.png'
+    ],
+    desc: 'A full-stack, admin-driven e-commerce platform for a premium hijab & scarf brand — built Cash-on-Delivery-first for Pakistan and ready to scale to the Gulf. Almost everything is configurable from the admin panel: products, pricing, payments, couriers, shipping rates, emails and even an on-site store assistant — with no code changes or redeploys.',
+    features: [
+      'SSR storefront with faceted filters, colour-aware galleries & a "Find Your Shade" quiz',
+      '3D / AR product try-on (model-viewer), bundles, coupons, reviews & wishlists',
+      'Built-in store assistant that answers from the live catalogue + surfaces unmet demand',
+      'Order state-machine: COD hold-for-confirmation, one-click courier booking & labels',
+      'Dynamic payments (Safepay / JazzCash / Easypaisa) & couriers — paste keys, no redeploy',
+      'Clean Architecture, stored-proc-first (Dapper + DbUp), server-authoritative pricing'
+    ],
+    tags: [['.NET 9', 'tag-net'], ['Angular', 'tag-angular'], ['SQL Server', 'tag-sql'], ['E-Commerce', 'tag-ai'], ['Live', 'tag-multitenant']]
+  },
+  {
+    key: 'relivora',
+    title: 'Relivora — Crowdfunding Platform',
+    category: 'fullstack',
+    featured: true,
+    live: 'https://relivora.org',
+    icon: 'fa-solid fa-hand-holding-heart',
+    images: [
+      'images/Projects/relivora/1.png', 'images/Projects/relivora/2.png', 'images/Projects/relivora/3.png',
+      'images/Projects/relivora/4.png', 'images/Projects/relivora/5.png', 'images/Projects/relivora/6.png',
+      'images/Projects/relivora/7.png', 'images/Projects/relivora/8.png'
+    ],
+    desc: 'A live, mobile-first crowdfunding platform (GoFundMe / Chuffed-style) with a 0% platform fee and donations paid straight to organisers via PayPal. Built from an empty repo to production: real authentication, a real database, live PayPal payments, organiser dashboards with reporting, automated email receipts, and a full custom admin back office.',
+    features: [
+      'Campaign discovery with category filters, live search & pagination',
+      'Guided "Start a Campaign" wizard with live image-upload preview',
+      'Secure PayPal checkout (one-time / monthly, optional tip, anonymous option)',
+      'Organiser dashboards + donation reports with CSV / Excel export',
+      'Custom in-theme admin: campaigns, users, donations, moderation & payouts',
+      'Mobile-first everywhere: sticky donate / share bar, tables reflow into cards'
+    ],
+    tags: [['Full-Stack', 'tag-azure'], ['PayPal', 'tag-multitenant'], ['Responsive', 'tag-html'], ['Live', 'tag-netlify']]
+  },
+  {
+    key: 'goldhorizon',
+    title: 'Gold Horizon Adventures — Tanzania Safari & Kilimanjaro',
+    category: 'live',
+    featured: true,
+    live: 'https://gold-horizon-adventures.netlify.app',
+    icon: 'fa-solid fa-mountain-sun',
+    images: [
+      'images/Projects/goldhorizon/1.png', 'images/Projects/goldhorizon/2.png', 'images/Projects/goldhorizon/3.png',
+      'images/Projects/goldhorizon/4.png', 'images/Projects/goldhorizon/5.png', 'images/Projects/goldhorizon/6.png',
+      'images/Projects/goldhorizon/7.png', 'images/Projects/goldhorizon/8.png'
+    ],
+    desc: 'A premium, fully responsive 57-page tourism website for an Arusha-based safari & Mount Kilimanjaro trekking operator. A custom navy-and-gold brand system with glassmorphism, gold-gradient headings and scroll animations presents dozens of climbing routes, safaris and day tours — every call-to-action deep-links to WhatsApp for instant, backend-free lead capture.',
+    features: [
+      '57 consistent pages generated from a content-driven build script',
+      'Navy + metallic-gold brand system, glassmorphism & animated stat counters',
+      'WhatsApp deep-link lead capture on every CTA (zero backend, zero DB cost)',
+      'Route & safari cards with day badges, "from $price" pills & itinerary accordions',
+      'Filterable gallery + lightbox, testimonial carousel and trust badges',
+      'SEO-ready (OG tags, sitemap, alt text); Playwright-tested, hosted on Netlify'
+    ],
+    tags: [['HTML', 'tag-html'], ['CSS', 'tag-html'], ['JavaScript', 'tag-js'], ['Netlify', 'tag-netlify'], ['Live', 'tag-multitenant']]
+  },
+
   // -------- Live SaaS landing pages --------
   {
     key: 'nexusai',
@@ -410,23 +528,6 @@ const projectsData = [
 
   // -------- Desktop / POS / WinForms --------
   {
-    key: 'restaurant',
-    title: 'Burger Bache — Restaurant POS and Inventory',
-    category: 'desktop',
-    icon: 'fa-solid fa-burger',
-    images: ['images/Projects/restaurant/1.png', 'images/Projects/restaurant/2.png', 'images/Projects/restaurant/3.png'],
-    desc: 'Full restaurant management system for Burger Bache — touch-friendly POS with visual menu, stock-in/out tracking, sale history with date filters, and printable sale reports. Built with C# WinForms on SQL Server.',
-    features: [
-      'Visual touch POS with product images by category',
-      'Sale history with date-range filter and totals',
-      'Stock-in entry and stock-in history',
-      'Manage Products / Manage Customer modules',
-      'Print Report for daily / monthly sales',
-      'Multi-user with admin role and dashboard analytics'
-    ],
-    tags: [['C# WinForms', 'tag-winforms'], ['SQL Server', 'tag-sql']]
-  },
-  {
     key: 'inventorymanagement',
     title: 'Inventory Management & Trader POS',
     category: 'desktop',
@@ -448,19 +549,25 @@ const projectsData = [
   // -------- Landing pages --------
   {
     key: 'delgatruck',
-    title: 'Delga Truck — Shopify Storefront',
+    title: 'DELGA — Norwegian Truck Workshop (Shopify)',
     category: 'landing',
+    live: 'https://delga.no',
     icon: 'fa-solid fa-truck',
-    images: ['images/Projects/delgatruck/1.png', 'images/Projects/delgatruck/2.png'],
-    desc: 'Custom Shopify theme + client storefront for Delga Truck. Includes a packaged theme, custom client integrations, and an audit pipeline to validate the storefront before deployment.',
-    features: [
-      'Custom Shopify Liquid theme & sections',
-      'Packaged theme zip ready for upload',
-      'Client-side custom integrations',
-      'Audit script for storefront validation',
-      'Asset and screenshot library'
+    images: [
+      'images/Projects/delgatruck/1.png', 'images/Projects/delgatruck/2.png', 'images/Projects/delgatruck/3.png',
+      'images/Projects/delgatruck/4.png', 'images/Projects/delgatruck/5.png', 'images/Projects/delgatruck/6.png',
+      'images/Projects/delgatruck/7.png'
     ],
-    tags: [['Shopify', 'tag-shopify'], ['HTML', 'tag-html'], ['CSS', 'tag-html'], ['JavaScript', 'tag-js']]
+    desc: 'A clean, fast, fully editable lead-generation website for a Norwegian heavy-vehicle workshop & transport company. A signature split "Workshop | Transport" hero (dual sliders + an animated brand-gradient frame), light & dark themes, and spam-protected booking & quote forms — all built as a custom Shopify theme the owner can manage himself, with zero code.',
+    features: [
+      'Split "Verksted | Transport" hero — dual image sliders + animated gradient frame',
+      'Light / Dark mode with saved visitor preference',
+      'Booking + Quote request forms (validation, honeypot spam protection)',
+      'Multi-view gallery (grid / masonry / slider) with lightbox',
+      'Reusable SEO landing-page template for local search (owner-editable)',
+      'Custom Shopify theme — every word, image & price editable from the admin'
+    ],
+    tags: [['Shopify', 'tag-shopify'], ['Liquid', 'tag-shopify'], ['JavaScript', 'tag-js'], ['Live', 'tag-multitenant']]
   },
 
   // -------- AI / Automation --------
@@ -507,6 +614,19 @@ const projectsData = [
     tags: [['Python', 'tag-python'], ['AI / LLM', 'tag-ai'], ['Automation', 'tag-ai']]
   }
 ];
+
+/* Display priority — strongest full-stack products lead the showcase (first 6 shown by default). */
+const PROJECT_ORDER = [
+  'hms', 'dineflow', 'saadgi', 'martpos', 'estatepro',
+  'relivora', 'goldhorizon', 'accountingsystem', 'sms', 'clinic', 'eyeoptical',
+  'damcloth', 'nexusai', 'stockflow', 'noor', 'delgatruck', 'trendflow',
+  'leedshunter', 'inventorymanagement'
+];
+projectsData.sort((a, b) => {
+  const ia = PROJECT_ORDER.indexOf(a.key);
+  const ib = PROJECT_ORDER.indexOf(b.key);
+  return (ia < 0 ? 999 : ia) - (ib < 0 ? 999 : ib);
+});
 
 /* =========================================================
    Render projects
@@ -666,6 +786,29 @@ function openModal(p) {
   tagsEl.innerHTML = p.tags.map(([l, c]) => `<span class="tag ${c}">${l}</span>`).join('');
   features.innerHTML = p.features.map(f => `<li>${f}</li>`).join('');
 
+  const demoEl = document.getElementById('modalDemo');
+  if (demoEl) {
+    if (p.demo) {
+      const cred = (label, value) => `
+        <button type="button" class="demo-cred" data-copy="${escapeAttr(value)}" title="Click to copy">
+          <span class="dc-label">${escapeAttr(label)}</span>
+          <span class="dc-value">${escapeAttr(value)}</span>
+          <i class="fa-regular fa-copy"></i>
+        </button>`;
+      demoEl.innerHTML = `
+        <div class="demo-head"><i class="fa-solid fa-key"></i> Live demo login</div>
+        <div class="demo-rows">
+          ${cred('Email', p.demo.email)}
+          ${cred('Password', p.demo.password)}
+        </div>
+        <p class="demo-hint">Open the live site above and sign in with these credentials.</p>`;
+      demoEl.hidden = false;
+    } else {
+      demoEl.innerHTML = '';
+      demoEl.hidden = true;
+    }
+  }
+
   const acts = [];
   if (p.live) {
     acts.push(`<a href="${p.live}" target="_blank" rel="noopener" class="btn btn-primary">
@@ -734,6 +877,28 @@ function closeModal() {
 
 document.addEventListener('click', (e) => {
   if (e.target.matches('[data-close]')) closeModal();
+});
+
+// Click-to-copy demo credentials
+document.addEventListener('click', (e) => {
+  const btn = e.target.closest('.demo-cred');
+  if (!btn) return;
+  const value = btn.getAttribute('data-copy') || '';
+  const done = () => {
+    btn.classList.add('copied');
+    setTimeout(() => btn.classList.remove('copied'), 1200);
+  };
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(value).then(done).catch(done);
+  } else {
+    const ta = document.createElement('textarea');
+    ta.value = value;
+    document.body.appendChild(ta);
+    ta.select();
+    try { document.execCommand('copy'); } catch (_) {}
+    document.body.removeChild(ta);
+    done();
+  }
 });
 
 document.querySelector('.gallery-prev')?.addEventListener('click', () => {
