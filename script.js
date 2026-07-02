@@ -314,7 +314,7 @@ const projectsData = [
     title: 'Gold Horizon Adventures — Tanzania Safari & Kilimanjaro',
     category: 'live',
     featured: true,
-    live: 'https://gold-horizon-adventures.netlify.app',
+    live: 'https://horizon-adventures.netlify.app',
     icon: 'fa-solid fa-mountain-sun',
     images: [
       'images/Projects/goldhorizon/1.png', 'images/Projects/goldhorizon/2.png', 'images/Projects/goldhorizon/3.png',
